@@ -1,0 +1,2694 @@
+{
+  "identity": {
+    "models": [
+      "mf",
+      "ividr",
+      "cdr"
+    ],
+    "epochs": 25,
+    "seed": 42,
+    "version": 4,
+    "grids": {
+      "mf": [
+        {
+          "embedding_dim": 128,
+          "lr": 0.001,
+          "weight_decay": 1e-05,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "lr": 0.0005,
+          "weight_decay": 1e-05,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "lr": 0.002,
+          "weight_decay": 1e-05,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 64,
+          "lr": 0.001,
+          "weight_decay": 1e-05,
+          "batch_size": 4096
+        }
+      ],
+      "ividr": [
+        {
+          "embedding_dim": 128,
+          "latent_dim": 64,
+          "lr": 0.002,
+          "phi": 0.1,
+          "beta_elbo": 0.001,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "latent_dim": 64,
+          "lr": 0.002,
+          "phi": 0.05,
+          "beta_elbo": 0.001,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "latent_dim": 64,
+          "lr": 0.002,
+          "phi": 0.2,
+          "beta_elbo": 0.001,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "latent_dim": 64,
+          "lr": 0.001,
+          "phi": 0.1,
+          "beta_elbo": 0.001,
+          "batch_size": 4096
+        },
+        {
+          "embedding_dim": 128,
+          "latent_dim": 32,
+          "lr": 0.002,
+          "phi": 0.1,
+          "beta_elbo": 0.001,
+          "batch_size": 4096
+        }
+      ],
+      "cdr": [
+        {
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "lr": 0.001,
+          "batch_size": 8192
+        },
+        {
+          "embedding_dim": 128,
+          "un_thres": 0.002,
+          "lr": 0.001,
+          "batch_size": 8192
+        },
+        {
+          "embedding_dim": 128,
+          "un_thres": 0.01,
+          "lr": 0.001,
+          "batch_size": 8192
+        },
+        {
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "lr": 0.0005,
+          "batch_size": 8192
+        },
+        {
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "lr": 0.002,
+          "batch_size": 8192
+        }
+      ]
+    },
+    "data": {
+      "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+      "source": {
+        "version": 7,
+        "protocol": "paper_idcf",
+        "alpha": 0.0,
+        "random_val_fraction": 0.3,
+        "label": "is_click",
+        "files": [
+          [
+            "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+            83961282,
+            1654608591000000000
+          ],
+          [
+            "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+            21765075,
+            1654609855000000000
+          ],
+          [
+            "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+            87086116,
+            1654599915000000000
+          ]
+        ]
+      },
+      "split": {
+        "protocol": "paper_idcf",
+        "split_strategy": "seeded_by_user_1234",
+        "random_val_fraction": 0.3,
+        "val_rows": 283437,
+        "test_rows": 671377,
+        "train_rows": 1413574,
+        "val_users": 7060,
+        "test_users": 16473,
+        "val_max_time_ms": null,
+        "test_min_time_ms": null,
+        "label": "is_click"
+      },
+      "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+      "n_users": 23533,
+      "n_items": 6712
+    },
+    "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718"
+  },
+  "protocol": "paper_idcf_30_70_user",
+  "evaluation_protocol": {
+    "metric_revision": "logged_binary_v1",
+    "reference": "iDCF_KDD2023",
+    "implementation": "idcf_aligned_local",
+    "k": 5,
+    "primary_metrics": [
+      "NDCG@5",
+      "Recall@5"
+    ],
+    "candidates": "logged_exposures",
+    "relevance": "binary_any_positive_per_user_item",
+    "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+    "recall_denominator": "all_positive_items_in_candidate_pool",
+    "aggregation": "macro_by_user",
+    "include_zero_positive_users": false,
+    "tie_break": "score_desc_then_item_id_asc",
+    "train_overlap": "retain_and_disclose",
+    "selection": "validation_ndcg",
+    "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+    "seed_std_ddof": 1,
+    "split": {
+      "protocol": "paper_idcf",
+      "split_strategy": "seeded_by_user_1234",
+      "random_val_fraction": 0.3,
+      "val_rows": 283437,
+      "test_rows": 671377,
+      "train_rows": 1413574,
+      "val_users": 7060,
+      "test_users": 16473,
+      "val_max_time_ms": null,
+      "test_min_time_ms": null,
+      "label": "is_click"
+    },
+    "paper_scores_directly_comparable": false,
+    "limitations": [
+      "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+      "Binary duplicate aggregation and deterministic score ties are local conventions.",
+      "Local model architectures, loss and tuning differ from original implementations."
+    ]
+  },
+  "selection": "validation_ndcg_only",
+  "epochs": 25,
+  "grids": {
+    "mf": [
+      {
+        "embedding_dim": 128,
+        "lr": 0.001,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "lr": 0.0005,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "lr": 0.002,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 64,
+        "lr": 0.001,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      }
+    ],
+    "ividr": [
+      {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.05,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.2,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.001,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      {
+        "embedding_dim": 128,
+        "latent_dim": 32,
+        "lr": 0.002,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      }
+    ],
+    "cdr": [
+      {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      {
+        "embedding_dim": 128,
+        "un_thres": 0.002,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      {
+        "embedding_dim": 128,
+        "un_thres": 0.01,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.0005,
+        "batch_size": 8192
+      },
+      {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.002,
+        "batch_size": 8192
+      }
+    ]
+  },
+  "trials": [
+    {
+      "model": "mf",
+      "config": {
+        "embedding_dim": 128,
+        "lr": 0.001,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.3421653723815998,
+      "best_epoch": 4,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\baselines\\kuairand_mf_tune_kr_e25_ccf13edada_v4_04b9c48279107742.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "mf_v4",
+        "model": "mf",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "weight_decay": 1e-05,
+          "seed": 42,
+          "device": "cpu",
+          "optimizer": "adam",
+          "loss": "bce",
+          "decay_scope": "embeddings",
+          "scheduler": "plateau",
+          "adam_fused": false,
+          "momentum": null
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "use_bias": true,
+          "train_global_bias": true
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 136.34
+    },
+    {
+      "model": "mf",
+      "config": {
+        "embedding_dim": 128,
+        "lr": 0.0005,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.3428007860758309,
+      "best_epoch": 6,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\baselines\\kuairand_mf_tune_kr_e25_e7e58d4d41_v4_2ebb464e62e0f83d.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "mf_v4",
+        "model": "mf",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.0005,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "weight_decay": 1e-05,
+          "seed": 42,
+          "device": "cpu",
+          "optimizer": "adam",
+          "loss": "bce",
+          "decay_scope": "embeddings",
+          "scheduler": "plateau",
+          "adam_fused": false,
+          "momentum": null
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "use_bias": true,
+          "train_global_bias": true
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 162.15
+    },
+    {
+      "model": "mf",
+      "config": {
+        "embedding_dim": 128,
+        "lr": 0.002,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.3408789778924109,
+      "best_epoch": 2,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\baselines\\kuairand_mf_tune_kr_e25_c191607905_v4_e45de70ade0bd437.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "mf_v4",
+        "model": "mf",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "weight_decay": 1e-05,
+          "seed": 42,
+          "device": "cpu",
+          "optimizer": "adam",
+          "loss": "bce",
+          "decay_scope": "embeddings",
+          "scheduler": "plateau",
+          "adam_fused": false,
+          "momentum": null
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "use_bias": true,
+          "train_global_bias": true
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 102.18
+    },
+    {
+      "model": "mf",
+      "config": {
+        "embedding_dim": 64,
+        "lr": 0.001,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.3419382811759493,
+      "best_epoch": 4,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\baselines\\kuairand_mf_tune_kr_e25_f8e34b2627_v4_22ef31e4e7f7dbbe.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "mf_v4",
+        "model": "mf",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "weight_decay": 1e-05,
+          "seed": 42,
+          "device": "cpu",
+          "optimizer": "adam",
+          "loss": "bce",
+          "decay_scope": "embeddings",
+          "scheduler": "plateau",
+          "adam_fused": false,
+          "momentum": null
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 64,
+          "use_bias": true,
+          "train_global_bias": true
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 62.06
+    },
+    {
+      "model": "ividr",
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.346572957062931,
+      "best_epoch": 12,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_5f1ca5ba30_v4_1a91b8f58cc798fc.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "ividr_v5",
+        "model": "ividr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 1e-05,
+          "beta_elbo": 0.001,
+          "kl_warmup_epochs": 5,
+          "exposure_sample_size": 128,
+          "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+          "ridge": null,
+          "optimizer": "Adam",
+          "adam_fused": false,
+          "gradient_clip": 1.0,
+          "scheduler": "none",
+          "training_schedule": "joint_local_reference",
+          "elbo_reduction": "sum",
+          "paper_reproduction_complete": false
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "iv_dim": 32,
+          "proxy_dim": 8,
+          "latent_dim": 64,
+          "phi": 0.1,
+          "lam": 1.0,
+          "rho": 0.9,
+          "tau": 0.9,
+          "projection_mode": "item_pinv",
+          "elbo_reduction": "sum"
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 4857.25
+    },
+    {
+      "model": "ividr",
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.05,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.34915479848235687,
+      "best_epoch": 12,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_1ccc6ceb36_v4_24f7a55515485e7d.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "ividr_v5",
+        "model": "ividr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 1e-05,
+          "beta_elbo": 0.001,
+          "kl_warmup_epochs": 5,
+          "exposure_sample_size": 128,
+          "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+          "ridge": null,
+          "optimizer": "Adam",
+          "adam_fused": false,
+          "gradient_clip": 1.0,
+          "scheduler": "none",
+          "training_schedule": "joint_local_reference",
+          "elbo_reduction": "sum",
+          "paper_reproduction_complete": false
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "iv_dim": 32,
+          "proxy_dim": 8,
+          "latent_dim": 64,
+          "phi": 0.05,
+          "lam": 1.0,
+          "rho": 0.9,
+          "tau": 0.9,
+          "projection_mode": "item_pinv",
+          "elbo_reduction": "sum"
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 4761.15
+    },
+    {
+      "model": "ividr",
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.002,
+        "phi": 0.2,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.33981599615976926,
+      "best_epoch": 6,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_e7a6fca1a1_v4_5b80feaf7230a599.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "ividr_v5",
+        "model": "ividr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 1e-05,
+          "beta_elbo": 0.001,
+          "kl_warmup_epochs": 5,
+          "exposure_sample_size": 128,
+          "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+          "ridge": null,
+          "optimizer": "Adam",
+          "adam_fused": false,
+          "gradient_clip": 1.0,
+          "scheduler": "none",
+          "training_schedule": "joint_local_reference",
+          "elbo_reduction": "sum",
+          "paper_reproduction_complete": false
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "iv_dim": 32,
+          "proxy_dim": 8,
+          "latent_dim": 64,
+          "phi": 0.2,
+          "lam": 1.0,
+          "rho": 0.9,
+          "tau": 0.9,
+          "projection_mode": "item_pinv",
+          "elbo_reduction": "sum"
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 3329.05
+    },
+    {
+      "model": "ividr",
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 64,
+        "lr": 0.001,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.34342869049349944,
+      "best_epoch": 15,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_85ab123eec_v4_b7d3caddeb525366.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "ividr_v5",
+        "model": "ividr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 1e-05,
+          "beta_elbo": 0.001,
+          "kl_warmup_epochs": 5,
+          "exposure_sample_size": 128,
+          "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+          "ridge": null,
+          "optimizer": "Adam",
+          "adam_fused": false,
+          "gradient_clip": 1.0,
+          "scheduler": "none",
+          "training_schedule": "joint_local_reference",
+          "elbo_reduction": "sum",
+          "paper_reproduction_complete": false
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "iv_dim": 32,
+          "proxy_dim": 8,
+          "latent_dim": 64,
+          "phi": 0.1,
+          "lam": 1.0,
+          "rho": 0.9,
+          "tau": 0.9,
+          "projection_mode": "item_pinv",
+          "elbo_reduction": "sum"
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 5685.93
+    },
+    {
+      "model": "ividr",
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 32,
+        "lr": 0.002,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "best_val_ndcg": 0.35095352019722464,
+      "best_epoch": 13,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_1c0b8c4f9b_v4_5e47f8362000c462.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "ividr_v5",
+        "model": "ividr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 4096,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 1e-05,
+          "beta_elbo": 0.001,
+          "kl_warmup_epochs": 5,
+          "exposure_sample_size": 128,
+          "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+          "ridge": null,
+          "optimizer": "Adam",
+          "adam_fused": false,
+          "gradient_clip": 1.0,
+          "scheduler": "none",
+          "training_schedule": "joint_local_reference",
+          "elbo_reduction": "sum",
+          "paper_reproduction_complete": false
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "iv_dim": 32,
+          "proxy_dim": 8,
+          "latent_dim": 32,
+          "phi": 0.1,
+          "lam": 1.0,
+          "rho": 0.9,
+          "tau": 0.9,
+          "projection_mode": "item_pinv",
+          "elbo_reduction": "sum"
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 4915.43
+    },
+    {
+      "model": "cdr",
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      "best_val_ndcg": 0.34523413618155374,
+      "best_epoch": 8,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_21a817d5b7_v4_bd0339bff18e7de4.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "cdr_v4",
+        "model": "cdr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 8192,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 0.0001,
+          "G": 1,
+          "mc_samples": 5,
+          "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+          "max_inverse_propensity": null,
+          "clipped_propensity_fraction": 0.0,
+          "population_counterfactual_weight": false,
+          "counterfactual_scale": 1.0,
+          "initial_rec_checkpoint": null,
+          "propensity": "item_frequency_clip_0.05_1",
+          "counterfactuals": "uniform_catalog_pairs",
+          "optimizer": "Adam",
+          "scheduler": "plateau_factor0.5_patience3_min1e-5"
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "dropout_rate": 0.5
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 1657.42
+    },
+    {
+      "model": "cdr",
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.002,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      "best_val_ndcg": 0.34383871823891154,
+      "best_epoch": 8,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_5a1e78e089_v4_eba58ab78414480f.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "cdr_v4",
+        "model": "cdr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 8192,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 0.0001,
+          "G": 1,
+          "mc_samples": 5,
+          "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+          "max_inverse_propensity": null,
+          "clipped_propensity_fraction": 0.0,
+          "population_counterfactual_weight": false,
+          "counterfactual_scale": 1.0,
+          "initial_rec_checkpoint": null,
+          "propensity": "item_frequency_clip_0.05_1",
+          "counterfactuals": "uniform_catalog_pairs",
+          "optimizer": "Adam",
+          "scheduler": "plateau_factor0.5_patience3_min1e-5"
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "un_thres": 0.002,
+          "dropout_rate": 0.5
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 1636.41
+    },
+    {
+      "model": "cdr",
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.01,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      "best_val_ndcg": 0.34497345025575765,
+      "best_epoch": 8,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_589f7d3f0c_v4_4a2248c0aaca9ec2.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "cdr_v4",
+        "model": "cdr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.001,
+          "batch_size": 8192,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 0.0001,
+          "G": 1,
+          "mc_samples": 5,
+          "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+          "max_inverse_propensity": null,
+          "clipped_propensity_fraction": 0.0,
+          "population_counterfactual_weight": false,
+          "counterfactual_scale": 1.0,
+          "initial_rec_checkpoint": null,
+          "propensity": "item_frequency_clip_0.05_1",
+          "counterfactuals": "uniform_catalog_pairs",
+          "optimizer": "Adam",
+          "scheduler": "plateau_factor0.5_patience3_min1e-5"
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "un_thres": 0.01,
+          "dropout_rate": 0.5
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 1629.21
+    },
+    {
+      "model": "cdr",
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.0005,
+        "batch_size": 8192
+      },
+      "best_val_ndcg": 0.3449850597667989,
+      "best_epoch": 17,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_38282c6061_v4_386209212e961f91.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "cdr_v4",
+        "model": "cdr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.0005,
+          "batch_size": 8192,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 0.0001,
+          "G": 1,
+          "mc_samples": 5,
+          "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+          "max_inverse_propensity": null,
+          "clipped_propensity_fraction": 0.0,
+          "population_counterfactual_weight": false,
+          "counterfactual_scale": 1.0,
+          "initial_rec_checkpoint": null,
+          "propensity": "item_frequency_clip_0.05_1",
+          "counterfactuals": "uniform_catalog_pairs",
+          "optimizer": "Adam",
+          "scheduler": "plateau_factor0.5_patience3_min1e-5"
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "dropout_rate": 0.5
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 2710.9
+    },
+    {
+      "model": "cdr",
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.002,
+        "batch_size": 8192
+      },
+      "best_val_ndcg": 0.34281178891783715,
+      "best_epoch": 5,
+      "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_c781f23446_v4_2982e71bbc1cb17f.pt",
+      "metadata": {
+        "artifact_version": 4,
+        "architecture_version": "cdr_v4",
+        "model": "cdr",
+        "dataset": "kuairand",
+        "config": {
+          "epochs": 25,
+          "lr": 0.002,
+          "batch_size": 8192,
+          "patience": 7,
+          "alpha": 0.0,
+          "seed": 42,
+          "device": "cpu",
+          "weight_decay": 0.0001,
+          "G": 1,
+          "mc_samples": 5,
+          "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+          "max_inverse_propensity": null,
+          "clipped_propensity_fraction": 0.0,
+          "population_counterfactual_weight": false,
+          "counterfactual_scale": 1.0,
+          "initial_rec_checkpoint": null,
+          "propensity": "item_frequency_clip_0.05_1",
+          "counterfactuals": "uniform_catalog_pairs",
+          "optimizer": "Adam",
+          "scheduler": "plateau_factor0.5_patience3_min1e-5"
+        },
+        "model_kwargs": {
+          "num_users": 23533,
+          "num_items": 6712,
+          "embedding_dim": 128,
+          "un_thres": 0.005,
+          "dropout_rate": 0.5
+        },
+        "data": {
+          "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+          "source": {
+            "version": 7,
+            "protocol": "paper_idcf",
+            "alpha": 0.0,
+            "random_val_fraction": 0.3,
+            "label": "is_click",
+            "files": [
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                83961282,
+                1654608591000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                21765075,
+                1654609855000000000
+              ],
+              [
+                "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                87086116,
+                1654599915000000000
+              ]
+            ]
+          },
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+          "n_users": 23533,
+          "n_items": 6712
+        },
+        "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+        "protocol": {
+          "metric_revision": "logged_binary_v1",
+          "reference": "iDCF_KDD2023",
+          "implementation": "idcf_aligned_local",
+          "k": 5,
+          "primary_metrics": [
+            "NDCG@5",
+            "Recall@5"
+          ],
+          "candidates": "logged_exposures",
+          "relevance": "binary_any_positive_per_user_item",
+          "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+          "recall_denominator": "all_positive_items_in_candidate_pool",
+          "aggregation": "macro_by_user",
+          "include_zero_positive_users": false,
+          "tie_break": "score_desc_then_item_id_asc",
+          "train_overlap": "retain_and_disclose",
+          "selection": "validation_ndcg",
+          "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+          "seed_std_ddof": 1,
+          "split": {
+            "protocol": "paper_idcf",
+            "split_strategy": "seeded_by_user_1234",
+            "random_val_fraction": 0.3,
+            "val_rows": 283437,
+            "test_rows": 671377,
+            "train_rows": 1413574,
+            "val_users": 7060,
+            "test_users": 16473,
+            "val_max_time_ms": null,
+            "test_min_time_ms": null,
+            "label": "is_click"
+          },
+          "paper_scores_directly_comparable": false,
+          "limitations": [
+            "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+            "Binary duplicate aggregation and deterministic score ties are local conventions.",
+            "Local model architectures, loss and tuning differ from original implementations."
+          ]
+        },
+        "environment": {
+          "torch": "2.14.0+cpu",
+          "numpy": "2.4.6"
+        }
+      },
+      "elapsed_seconds": 1356.94
+    }
+  ],
+  "selected": {
+    "mf": {
+      "config": {
+        "embedding_dim": 128,
+        "lr": 0.0005,
+        "weight_decay": 1e-05,
+        "batch_size": 4096
+      },
+      "validation_ndcg": 0.3428007860758309,
+      "best_epoch": 6,
+      "test": {
+        "metric_revision": "logged_binary_v1",
+        "candidate_users": 16473,
+        "candidate_pairs": 671360,
+        "empty_candidate_users": 0,
+        "NDCG@5": 0.34341975406838726,
+        "Recall@5": 0.29479066704797124,
+        "Recall@5_bounded": 0.388451093665136,
+        "Precision@5": 0.2676640497704044,
+        "HitRate@5": 0.7017478892015998,
+        "eval_users": 13502,
+        "zero_positive_users": 2971,
+        "NDCG@5_CI95_halfwidth": 0.005065394368536264,
+        "elapsed_seconds": 2.01,
+        "AUC": 0.5559711454791112,
+        "auc_users": 13500,
+        "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\baselines\\kuairand_mf_tune_kr_e25_e7e58d4d41_v4_2ebb464e62e0f83d.pt",
+        "best_epoch": 6,
+        "best_val_ndcg": 0.3428007860758309,
+        "metadata": {
+          "artifact_version": 4,
+          "architecture_version": "mf_v4",
+          "model": "mf",
+          "dataset": "kuairand",
+          "config": {
+            "epochs": 25,
+            "lr": 0.0005,
+            "batch_size": 4096,
+            "patience": 7,
+            "alpha": 0.0,
+            "weight_decay": 1e-05,
+            "seed": 42,
+            "device": "cpu",
+            "optimizer": "adam",
+            "loss": "bce",
+            "decay_scope": "embeddings",
+            "scheduler": "plateau",
+            "adam_fused": false,
+            "momentum": null
+          },
+          "model_kwargs": {
+            "num_users": 23533,
+            "num_items": 6712,
+            "embedding_dim": 128,
+            "use_bias": true,
+            "train_global_bias": true
+          },
+          "data": {
+            "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+            "source": {
+              "version": 7,
+              "protocol": "paper_idcf",
+              "alpha": 0.0,
+              "random_val_fraction": 0.3,
+              "label": "is_click",
+              "files": [
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                  83961282,
+                  1654608591000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                  21765075,
+                  1654609855000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                  87086116,
+                  1654599915000000000
+                ]
+              ]
+            },
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+            "n_users": 23533,
+            "n_items": 6712
+          },
+          "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+          "protocol": {
+            "metric_revision": "logged_binary_v1",
+            "reference": "iDCF_KDD2023",
+            "implementation": "idcf_aligned_local",
+            "k": 5,
+            "primary_metrics": [
+              "NDCG@5",
+              "Recall@5"
+            ],
+            "candidates": "logged_exposures",
+            "relevance": "binary_any_positive_per_user_item",
+            "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+            "recall_denominator": "all_positive_items_in_candidate_pool",
+            "aggregation": "macro_by_user",
+            "include_zero_positive_users": false,
+            "tie_break": "score_desc_then_item_id_asc",
+            "train_overlap": "retain_and_disclose",
+            "selection": "validation_ndcg",
+            "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+            "seed_std_ddof": 1,
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "paper_scores_directly_comparable": false,
+            "limitations": [
+              "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+              "Binary duplicate aggregation and deterministic score ties are local conventions.",
+              "Local model architectures, loss and tuning differ from original implementations."
+            ]
+          },
+          "environment": {
+            "torch": "2.14.0+cpu",
+            "numpy": "2.4.6"
+          }
+        }
+      }
+    },
+    "ividr": {
+      "config": {
+        "embedding_dim": 128,
+        "latent_dim": 32,
+        "lr": 0.002,
+        "phi": 0.1,
+        "beta_elbo": 0.001,
+        "batch_size": 4096
+      },
+      "validation_ndcg": 0.35095352019722464,
+      "best_epoch": 13,
+      "test": {
+        "metric_revision": "logged_binary_v1",
+        "candidate_users": 16473,
+        "candidate_pairs": 671360,
+        "empty_candidate_users": 0,
+        "NDCG@5": 0.3483740403008555,
+        "Recall@5": 0.30493298026052285,
+        "Recall@5_bounded": 0.3974621043795981,
+        "Precision@5": 0.2695008146941194,
+        "HitRate@5": 0.7170048881647163,
+        "eval_users": 13502,
+        "zero_positive_users": 2971,
+        "NDCG@5_CI95_halfwidth": 0.005004296363506633,
+        "elapsed_seconds": 2.06,
+        "AUC": 0.5606467777561375,
+        "auc_users": 13500,
+        "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\ividr\\kuairand_ividr_tune_kr_e25_1c0b8c4f9b_v4_5e47f8362000c462.pt",
+        "best_epoch": 13,
+        "best_val_ndcg": 0.35095352019722464,
+        "metadata": {
+          "artifact_version": 4,
+          "architecture_version": "ividr_v5",
+          "model": "ividr",
+          "dataset": "kuairand",
+          "config": {
+            "epochs": 25,
+            "lr": 0.002,
+            "batch_size": 4096,
+            "patience": 7,
+            "alpha": 0.0,
+            "seed": 42,
+            "device": "cpu",
+            "weight_decay": 1e-05,
+            "beta_elbo": 0.001,
+            "kl_warmup_epochs": 5,
+            "exposure_sample_size": 128,
+            "feature_sha256": "3768bd4455b85e08dc83ccaec639af48cb3eb1931b509efcd9ae6bcdc98991b4",
+            "ridge": null,
+            "optimizer": "Adam",
+            "adam_fused": false,
+            "gradient_clip": 1.0,
+            "scheduler": "none",
+            "training_schedule": "joint_local_reference",
+            "elbo_reduction": "sum",
+            "paper_reproduction_complete": false
+          },
+          "model_kwargs": {
+            "num_users": 23533,
+            "num_items": 6712,
+            "embedding_dim": 128,
+            "iv_dim": 32,
+            "proxy_dim": 8,
+            "latent_dim": 32,
+            "phi": 0.1,
+            "lam": 1.0,
+            "rho": 0.9,
+            "tau": 0.9,
+            "projection_mode": "item_pinv",
+            "elbo_reduction": "sum"
+          },
+          "data": {
+            "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+            "source": {
+              "version": 7,
+              "protocol": "paper_idcf",
+              "alpha": 0.0,
+              "random_val_fraction": 0.3,
+              "label": "is_click",
+              "files": [
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                  83961282,
+                  1654608591000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                  21765075,
+                  1654609855000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                  87086116,
+                  1654599915000000000
+                ]
+              ]
+            },
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+            "n_users": 23533,
+            "n_items": 6712
+          },
+          "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+          "protocol": {
+            "metric_revision": "logged_binary_v1",
+            "reference": "iDCF_KDD2023",
+            "implementation": "idcf_aligned_local",
+            "k": 5,
+            "primary_metrics": [
+              "NDCG@5",
+              "Recall@5"
+            ],
+            "candidates": "logged_exposures",
+            "relevance": "binary_any_positive_per_user_item",
+            "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+            "recall_denominator": "all_positive_items_in_candidate_pool",
+            "aggregation": "macro_by_user",
+            "include_zero_positive_users": false,
+            "tie_break": "score_desc_then_item_id_asc",
+            "train_overlap": "retain_and_disclose",
+            "selection": "validation_ndcg",
+            "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+            "seed_std_ddof": 1,
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "paper_scores_directly_comparable": false,
+            "limitations": [
+              "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+              "Binary duplicate aggregation and deterministic score ties are local conventions.",
+              "Local model architectures, loss and tuning differ from original implementations."
+            ]
+          },
+          "environment": {
+            "torch": "2.14.0+cpu",
+            "numpy": "2.4.6"
+          }
+        }
+      }
+    },
+    "cdr": {
+      "config": {
+        "embedding_dim": 128,
+        "un_thres": 0.005,
+        "lr": 0.001,
+        "batch_size": 8192
+      },
+      "validation_ndcg": 0.34523413618155374,
+      "best_epoch": 8,
+      "test": {
+        "metric_revision": "logged_binary_v1",
+        "candidate_users": 16473,
+        "candidate_pairs": 671360,
+        "empty_candidate_users": 0,
+        "NDCG@5": 0.34591372042566537,
+        "Recall@5": 0.2990338660678151,
+        "Recall@5_bounded": 0.39223818693526885,
+        "Precision@5": 0.26936750111094654,
+        "HitRate@5": 0.7101910828025477,
+        "eval_users": 13502,
+        "zero_positive_users": 2971,
+        "NDCG@5_CI95_halfwidth": 0.005038497316795704,
+        "elapsed_seconds": 2.02,
+        "AUC": 0.5608784719610077,
+        "auc_users": 13500,
+        "checkpoint_path": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\collaborative-filtering\\checkpoints\\cdr\\kuairand_cdr_tune_kr_e25_21a817d5b7_v4_bd0339bff18e7de4.pt",
+        "best_epoch": 8,
+        "best_val_ndcg": 0.34523413618155374,
+        "metadata": {
+          "artifact_version": 4,
+          "architecture_version": "cdr_v4",
+          "model": "cdr",
+          "dataset": "kuairand",
+          "config": {
+            "epochs": 25,
+            "lr": 0.001,
+            "batch_size": 8192,
+            "patience": 7,
+            "alpha": 0.0,
+            "seed": 42,
+            "device": "cpu",
+            "weight_decay": 0.0001,
+            "G": 1,
+            "mc_samples": 5,
+            "propensity_sha256": "ac9db67559e54cd407a7be5857b806fd5ac57c1e21a96a2630fc6d3e6d4435c7",
+            "max_inverse_propensity": null,
+            "clipped_propensity_fraction": 0.0,
+            "population_counterfactual_weight": false,
+            "counterfactual_scale": 1.0,
+            "initial_rec_checkpoint": null,
+            "propensity": "item_frequency_clip_0.05_1",
+            "counterfactuals": "uniform_catalog_pairs",
+            "optimizer": "Adam",
+            "scheduler": "plateau_factor0.5_patience3_min1e-5"
+          },
+          "model_kwargs": {
+            "num_users": 23533,
+            "num_items": 6712,
+            "embedding_dim": 128,
+            "un_thres": 0.005,
+            "dropout_rate": 0.5
+          },
+          "data": {
+            "sha256": "f164f1cd092d692ff75bccbb440c6c2d94088629c88a64d19d1817879ed74238",
+            "source": {
+              "version": 7,
+              "protocol": "paper_idcf",
+              "alpha": 0.0,
+              "random_val_fraction": 0.3,
+              "label": "is_click",
+              "files": [
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_08_to_4_21_pure.csv",
+                  83961282,
+                  1654608591000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_standard_4_22_to_5_08_pure.csv",
+                  21765075,
+                  1654609855000000000
+                ],
+                [
+                  "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data\\log_random_4_22_to_5_08_pure.csv",
+                  87086116,
+                  1654599915000000000
+                ]
+              ]
+            },
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "data_dir": "D:\\University\\Mobile_Application\\TopTop\\agri-behavioral-recsys\\data\\raw\\kuairand_pure\\data",
+            "n_users": 23533,
+            "n_items": 6712
+          },
+          "code_sha256": "22ea114a3bdbffa66c82d64a84eccd8893aecb6395ebce886dffa877938eb718",
+          "protocol": {
+            "metric_revision": "logged_binary_v1",
+            "reference": "iDCF_KDD2023",
+            "implementation": "idcf_aligned_local",
+            "k": 5,
+            "primary_metrics": [
+              "NDCG@5",
+              "Recall@5"
+            ],
+            "candidates": "logged_exposures",
+            "relevance": "binary_any_positive_per_user_item",
+            "ndcg": "sum(hit_r/log2(r+1))/sum(1/log2(r+1),r=1..min(k,n_positive))",
+            "recall_denominator": "all_positive_items_in_candidate_pool",
+            "aggregation": "macro_by_user",
+            "include_zero_positive_users": false,
+            "tie_break": "score_desc_then_item_id_asc",
+            "train_overlap": "retain_and_disclose",
+            "selection": "validation_ndcg",
+            "auc": "auxiliary_macro_by_user_with_both_classes_half_credit_for_ties",
+            "seed_std_ddof": 1,
+            "split": {
+              "protocol": "paper_idcf",
+              "split_strategy": "seeded_by_user_1234",
+              "random_val_fraction": 0.3,
+              "val_rows": 283437,
+              "test_rows": 671377,
+              "train_rows": 1413574,
+              "val_users": 7060,
+              "test_users": 16473,
+              "val_max_time_ms": null,
+              "test_min_time_ms": null,
+              "label": "is_click"
+            },
+            "paper_scores_directly_comparable": false,
+            "limitations": [
+              "CDR paper uses 10/90 validation/test; this benchmark uses iDCF 30/70 user split.",
+              "Binary duplicate aggregation and deterministic score ties are local conventions.",
+              "Local model architectures, loss and tuning differ from original implementations."
+            ]
+          },
+          "environment": {
+            "torch": "2.14.0+cpu",
+            "numpy": "2.4.6"
+          }
+        }
+      }
+    }
+  }
+}
