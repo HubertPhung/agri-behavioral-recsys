@@ -10,4 +10,14 @@
 /data/processed/
 /collaborative-filtering-als/data/
 /collaborative-filtering/data/
+# Firebase Private Keys and Database Exports
+serviceAccountKey.json
+*adminsdk*.json
+*firebase-adminsdk*.json
+**/data/firebase_export/
+**/data/firebase/
+*-default-rtdb-export.json
+firestore_data.json
+realtime_db_data.json
+auth_users_data.json
 # Keep source, documentation and compact JSON/Markdown reports reviewable.

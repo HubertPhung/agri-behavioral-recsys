@@ -269,6 +269,8 @@ Sau mỗi lần chạy, kết quả sẽ tự động được ghi nhận tại 
 
 ## 📑 Tài Liệu Tham Khảo Trong Dự Án
 
+- [`collaborative-filtering/docs/README.md`](collaborative-filtering/docs/README.md): **Trung tâm tài liệu tổng hợp (Documentation Hub)**.
+- [`collaborative-filtering/docs/colab_recsys_rest_api_plan.md`](collaborative-filtering/docs/colab_recsys_rest_api_plan.md): Kế hoạch chuyển đổi CF thành RESTful API trên Google Colab.
 - [`collaborative-filtering/README.md`](collaborative-filtering/README.md): Hướng dẫn kỹ thuật chuyên sâu và chi tiết pipeline.
 - [`collaborative-filtering/docs/evaluation_protocol.md`](collaborative-filtering/docs/evaluation_protocol.md): Chi tiết toán học và công thức các chỉ số ranking.
 - [`collaborative-filtering/docs/mf_optimizer_audit.md`](collaborative-filtering/docs/mf_optimizer_audit.md): Phân tích so sánh Adam vs SGD và kiểm tra kiến trúc MF.
